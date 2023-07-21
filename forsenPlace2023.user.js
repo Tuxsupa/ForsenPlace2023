@@ -174,10 +174,10 @@ async function executeOrders() {
     try {
         // ctx = await getCanvasFromUrl(await getCurrentImageUrl('0'), 0, 0);
         ctx = await getCanvasFromUrl(await getCurrentImageUrl('1'), 1000, 0);
-        // ctx = await getCanvasFromUrl(await getCurrentImageUrl('2'), 2000, 0);
+        ctx = await getCanvasFromUrl(await getCurrentImageUrl('2'), 2000, 0);
 		// ctx = await getCanvasFromUrl(await getCurrentImageUrl('3'), 0, 1000);
         ctx = await getCanvasFromUrl(await getCurrentImageUrl('4'), 1000, 1000);
-        // ctx = await getCanvasFromUrl(await getCurrentImageUrl('5'), 2000, 1000);
+        ctx = await getCanvasFromUrl(await getCurrentImageUrl('5'), 2000, 1000);
 	} catch (e) {
 		console.warn('Error obtaining map', e);
 		Toastify({
@@ -258,7 +258,12 @@ function place(x, y, color, canvasIndex) {
 	let extraX = 0
 	let extraY = 0
 
-	if (canvasIndex <= 2)
+	if (x >= 500)
+		extraX = -500
+	else
+		extraX = 500
+
+	if (y >= 0)
 		extraY = 1000
 	
 	// if (canvasIndex == 1 || canvasIndex == 4)
@@ -273,7 +278,7 @@ function place(x, y, color, canvasIndex) {
 					'actionName': 'r/replace:set_pixel',
 					'PixelMessageData': {
 						'coordinate': {
-							'x': x+500,
+							'x': x+extraX,
 							'y': y+extraY
 						},
 						'colorIndex': color,
