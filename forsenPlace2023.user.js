@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ForsenPlace 2023 Script
 // @namespace    https://github.com/Tuxsupa/ForsenPlace2023
-// @version      1
+// @version      2
 // @description  Script
 // @author       Tuxsuper
 // @match        https://www.reddit.com/r/place/*
@@ -263,7 +263,7 @@ function place(x, y, color, canvasIndex) {
 	else
 		extraX = 500
 
-	if (y >= 0)
+	if (y < 0)
 		extraY = 1000
 	
 	// if (canvasIndex == 1 || canvasIndex == 4)
