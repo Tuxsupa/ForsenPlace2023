@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ForsenPlace 2023 Script
 // @namespace    https://github.com/Tuxsupa/ForsenPlace2023
-// @version      2
+// @version      3
 // @description  Script
 // @author       Tuxsuper
 // @match        https://www.reddit.com/r/place/*
@@ -172,10 +172,10 @@ function updateOrders(){
 async function executeOrders() {
 	var ctx;
     try {
-        // ctx = await getCanvasFromUrl(await getCurrentImageUrl('0'), 0, 0);
+        ctx = await getCanvasFromUrl(await getCurrentImageUrl('0'), 0, 0);
         ctx = await getCanvasFromUrl(await getCurrentImageUrl('1'), 1000, 0);
         ctx = await getCanvasFromUrl(await getCurrentImageUrl('2'), 2000, 0);
-		// ctx = await getCanvasFromUrl(await getCurrentImageUrl('3'), 0, 1000);
+		ctx = await getCanvasFromUrl(await getCurrentImageUrl('3'), 0, 1000);
         ctx = await getCanvasFromUrl(await getCurrentImageUrl('4'), 1000, 1000);
         ctx = await getCanvasFromUrl(await getCurrentImageUrl('5'), 2000, 1000);
 	} catch (e) {
@@ -258,16 +258,15 @@ function place(x, y, color, canvasIndex) {
 	let extraX = 0
 	let extraY = 0
 
-	if (x >= 500)
-		extraX = -500
-	else
+	if (x <= -499)
+		extraX = 1500
+	if (x <= 499)
 		extraX = 500
+	else
+		extraX = -500
 
 	if (y < 0)
 		extraY = 1000
-	
-	// if (canvasIndex == 1 || canvasIndex == 4)
-	// 	extraX = 500
 		
 	return fetch('https://gql-realtime-2.reddit.com/query', {
 		method: 'POST',
