@@ -188,14 +188,17 @@ async function executeOrders() {
 		return;
 	}
 
-	for (const [prioIndex, orders] of currentOrdersByPrio.entries()) {
+	const anchorX = 1500
+	const anchorY = 1000
+
+	for (const [orders, prioIndex] of currentOrdersByPrio) {
 		let start = Math.floor(Math.random() * orders.length);
 		for (let offset = 0; offset < orders.length; offset++) {
 			const order = orders[(start + offset) % orders.length]
 			const x = order[0];
 			const y = order[1];
 			const colorId = order[2];
-			const rgbaAtLocation = ctx.getImageData(x+1500, y+1000, 1, 1).data;
+			const rgbaAtLocation = ctx.getImageData(x+anchorX, y+anchorY, 1, 1).data;
 			const hex = rgbToHex(rgbaAtLocation[0], rgbaAtLocation[1], rgbaAtLocation[2]);
 			const currentColorId = COLOR_TO_INDEX[hex];
 
@@ -298,31 +301,6 @@ function place(x, y, color, canvasIndex) {
 }
 
 function getCanvasIndex(x, y) {
-    // if (x <= -499) {
-    //     if (y <= -499)
-    //         return 0
-    //     else if (y <= 499)
-    //         return 3
-    //     else
-    //         return 6
-    // }
-    // else if (x <= 499) {
-    //     if (y <= -499)
-    //         return 1
-    //     else if (y <= 499)
-    //         return 4
-    //     else
-    //         return 7
-    // }
-    // else {
-    //     if (y <= -499)
-    //         return 2
-    //     else if (y <= 499)
-    //         return 5
-    //     else
-    //         return 8
-    // }
-
 	if (x <= -499) {
         if (y < 0)
             return 0
